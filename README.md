@@ -1,4 +1,4 @@
-ST558 Project 2: Bike Sharing Data Set Analysis
+# ST558 Project 2: Bike Sharing Data Set Analysis  
 Have you ever rented a bike from B-Cycle in Charlotte, NC? Then, welcome to the fascinating world of bike sharing systems. Let's examine some data from  the [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Bike+Sharing+Dataset) and try to predict the amount of total rental bikes depending on predictors like time of year or time of the week.
 
 There are n=731 observations and p=17 variables available from the Capital bike sharing system (Washington DC) in 2011-2012:
@@ -34,18 +34,18 @@ We will split the data into analyses by weekday, so 7 separate analyses for each
 * Create a boosted tree model using cross-validation
 * Comparison of model performances on the test data set, and selection of a 'best model'
 
+## Analysis  
+Here's all the analysis:  
+[Sunday]()  
+[Monday]()  
+[Tuesday]()  
+[Wednesday]()  
+[Thursday]()  
+[Friday]()  
+[Saturday]()  
 
-Here's all the analysis:
 
-[Sunday]()
-[Monday]()
-[Tuesday]()
-[Wednesday]()
-[Thursday]()
-[Friday]()
-[Saturday]()
-
-
+## R Markdown Automation  
 Here's how to automate the analysis using the Project2.Rmd code:
 1. Check that these packages are installed: 
 
@@ -57,10 +57,10 @@ Here's how to automate the analysis using the Project2.Rmd code:
 
 2. Execute this code:
 
-days <- c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
-outFiles <- paste0(days, "Analysis.md")
-for (i in 1:7){
-    rmarkdown::render("Project2.Rmd", output_file=outFiles[i], params=list(weekday=days[i]))
-}
+days <- c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")  
+outFiles <- paste0(days, "Analysis.md")  
+for (i in 1:7){  
+    rmarkdown::render("Project2.Rmd", output_file=outFiles[i], params=list(weekday=days[i]))  
+}  
 
 I know for-loops are a bit frowned upon in R, but this isn't bad with only 7 iterations! Plus, it's more obvious what's happening than in an apply() family function.
