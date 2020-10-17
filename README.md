@@ -35,13 +35,13 @@ We will split the data into analyses by weekday, so 7 separate analyses for each
 
 ## Analysis  
 Here's all the analysis:  
-[Sunday]()  
-[Monday]()  
-[Tuesday]()  
-[Wednesday]()  
-[Thursday]()  
-[Friday]()  
-[Saturday]()  
+[Sunday](SundayAnalysis.md)  
+[Monday](MondayAnalysis.md)  
+[Tuesday](TuesdayAnalysis.md)  
+[Wednesday](WednesdayAnalysis.md)  
+[Thursday](ThursdayAnalysis.md)  
+[Friday](FridayAnalysis.md)  
+[Saturday](SaturdayAnalysis.md)  
 
 
 ## R Markdown Automation  
