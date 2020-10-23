@@ -156,21 +156,21 @@ boost.cv <- train(cnt ~ .,
 boost.cv$bestTune
 ```
 
-# Second Analysis  
-## Linear model  
-
-```{r}
-lm.fit <- lm(cnt~temp+windspeed+atemp+hum, data =dayData.train)
+#### Second Analysis  
+##### Linear Model  
+Additional work added by QiaoZhi Bao, as part of post-Project 2 follow-up practice with GitHub forking a repo, making changes, then adding them as a pull request for the repo owner to review and merge into their original work.  
+```{r, cache=TRUE}
+lm.fit <- lm(cnt ~ temp + windspeed + atemp + hum, data=dayData.train)
 summary(lm.fit)
-final.fit <- train(as.formula(cnt~temp+windspeed+atemp+hum),
-              dayData.test,method='lm',
-              trControl = trainControl(method = 'cv',number=5))
+final.fit <- train(as.formula(cnt ~ temp + windspeed + atemp + hum),
+              dayData.test, 
+              method='lm',
+              trControl = trainControl(method='cv', number=5))
 final.fit$results$RMSE
 ```
 
-
 #### Final Model
-We compare the final models selected from `tree.cv` ,`boost.cv` and `linear model`for best performance on the test dataset. We measure performance as the smallest RMSE (root mean squared error), which reflects unexplained variation. Then, we'll take the best model and report it's parameters.  
+We compare the final models selected from `tree.cv` ,`boost.cv` and `linear model` for best performance on the test dataset. We measure performance as the smallest RMSE (root mean squared error), which reflects unexplained variation. Then, we'll take the best model and report it's parameters.  
 ```{r FinalModel, cache=TRUE}
 regPred <- predict(tree.cv, newdata=dayData.test)
 reg.rmse <- sqrt(mean((regPred - dayData.test$cnt)^2))
@@ -184,7 +184,7 @@ colnames(RMSE.vals) <- "RMSE"
 kable(RMSE.vals)
 
 ```
-We prefer the model with lower RMSE.We found that boosted tree is the optimal model.
+We prefer the model with lower RMSE. We found that boosted tree is the optimal model.
 
 #### R Markdown Automation Code
 Please don't run this when knitting Project2.Rmd! You'll want to run this separately (like in the Console) to get all the reports. Just putting this here so it doesn't get lost! You can access these R Markdwon parameters using `params$weekday` in the R Code during each automated run.
@@ -195,4 +195,3 @@ for (i in 1:7){
   rmarkdown::render("Project2.Rmd", output_file=outFiles[i], params=list(day=(i-1)))
 }
 ```
-
