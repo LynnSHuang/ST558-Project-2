@@ -305,7 +305,7 @@ tree.cv$finalModel
 plot(tree.cv$finalModel, margin=0.2); text(tree.cv$finalModel, cex=0.8)
 ```
 
-![](SundayAnalysis_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](SundayAnalysis_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
 #### Boosted Tree with CV
 
@@ -401,7 +401,7 @@ kable(RMSE.vals)
 | Boosted Tree    |  606.2937 |
 | linear model    | 1263.2644 |
 
-We prefer the model with lower RMSE.We found that linear model is the
+We prefer the model with lower RMSE.We found that boosted tree is the
 optimal model.
 
 #### R Markdown Automation Code

@@ -121,21 +121,29 @@ report-specific day (as it should\!).
 summary(dayData)
 ```
 
-    ##  season yr          mnth    holiday weekday workingday weathersit      temp             atemp        
-    ##  1:27   0:53   12     :10   0:105   0:  0   0:105      1:67       Min.   :0.05913   Min.   :0.07907  
-    ##  2:26   1:52   1      : 9   1:  0   1:  0   1:  0      2:34       1st Qu.:0.32500   1st Qu.:0.32448  
-    ##  3:27          3      : 9           2:  0              3: 4       Median :0.47250   Median :0.46653  
-    ##  4:25          4      : 9           3:  0                         Mean   :0.48204   Mean   :0.46207  
-    ##                6      : 9           4:  0                         3rd Qu.:0.65917   3rd Qu.:0.61112  
-    ##                7      : 9           5:  0                         Max.   :0.86167   Max.   :0.80491  
-    ##                (Other):50           6:105                                                            
-    ##       hum           windspeed           cnt      
-    ##  Min.   :0.1879   Min.   :0.0454   Min.   : 627  
-    ##  1st Qu.:0.5029   1st Qu.:0.1443   1st Qu.:2732  
-    ##  Median :0.6133   Median :0.1891   Median :4521  
-    ##  Mean   :0.6196   Mean   :0.1966   Mean   :4551  
-    ##  3rd Qu.:0.7312   3rd Qu.:0.2332   3rd Qu.:6140  
-    ##  Max.   :0.9292   Max.   :0.5075   Max.   :8714  
+    ##  season yr          mnth    holiday weekday workingday weathersit
+    ##  1:27   0:53   12     :10   0:105   0:  0   0:105      1:67      
+    ##  2:26   1:52   1      : 9   1:  0   1:  0   1:  0      2:34      
+    ##  3:27          3      : 9           2:  0              3: 4      
+    ##  4:25          4      : 9           3:  0                        
+    ##                6      : 9           4:  0                        
+    ##                7      : 9           5:  0                        
+    ##                (Other):50           6:105                        
+    ##       temp             atemp              hum           windspeed     
+    ##  Min.   :0.05913   Min.   :0.07907   Min.   :0.1879   Min.   :0.0454  
+    ##  1st Qu.:0.32500   1st Qu.:0.32448   1st Qu.:0.5029   1st Qu.:0.1443  
+    ##  Median :0.47250   Median :0.46653   Median :0.6133   Median :0.1891  
+    ##  Mean   :0.48204   Mean   :0.46207   Mean   :0.6196   Mean   :0.1966  
+    ##  3rd Qu.:0.65917   3rd Qu.:0.61112   3rd Qu.:0.7312   3rd Qu.:0.2332  
+    ##  Max.   :0.86167   Max.   :0.80491   Max.   :0.9292   Max.   :0.5075  
+    ##                                                                       
+    ##       cnt      
+    ##  Min.   : 627  
+    ##  1st Qu.:2732  
+    ##  Median :4521  
+    ##  Mean   :4551  
+    ##  3rd Qu.:6140  
+    ##  Max.   :8714  
     ## 
 
 ``` r
@@ -389,7 +397,7 @@ kable(RMSE.vals)
 | Boosted Tree    |  819.0543 |
 | linear model    | 1736.5977 |
 
-We prefer the model with lower RMSE.We found that linear model is the
+We prefer the model with lower RMSE.We found that boosted tree is the
 optimal model.
 
 #### R Markdown Automation Code

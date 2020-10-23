@@ -699,21 +699,29 @@ There are n=731 observations and p=16 variables on the Capital bike sharing syst
 Most of the days were not a holiday. The weekday corresponds to the report-specific day (as it should!).</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Do some basic five-number summaries to check for outliers</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="kw">summary</span>(dayData)</span></code></pre></div>
-<pre><code>##  season yr          mnth    holiday weekday workingday weathersit      temp            atemp       
-##  1:25   0:52   8      :10   0:103   0:  0   0:  1      1:64       Min.   :0.1075   Min.   :0.1193  
-##  2:27   1:52   2      : 9   1:  1   1:  0   1:103      2:33       1st Qu.:0.3463   1st Qu.:0.3412  
-##  3:27          3      : 9           2:  0              3: 7       Median :0.5350   Median :0.5136  
-##  4:25          5      : 9           3:104                         Mean   :0.5046   Mean   :0.4816  
-##                6      : 9           4:  0                         3rd Qu.:0.6583   3rd Qu.:0.6122  
-##                10     : 9           5:  0                         Max.   :0.7933   Max.   :0.7469  
-##                (Other):49           6:  0                                                          
-##       hum           windspeed            cnt      
-##  Min.   :0.3600   Min.   :0.06096   Min.   : 441  
-##  1st Qu.:0.5379   1st Qu.:0.13418   1st Qu.:2653  
-##  Median :0.6331   Median :0.17818   Median :4642  
-##  Mean   :0.6454   Mean   :0.18774   Mean   :4549  
-##  3rd Qu.:0.7435   3rd Qu.:0.24360   3rd Qu.:6176  
-##  Max.   :0.9704   Max.   :0.41543   Max.   :8173  
+<pre><code>##  season yr          mnth    holiday weekday workingday weathersit
+##  1:25   0:52   8      :10   0:103   0:  0   0:  1      1:64      
+##  2:27   1:52   2      : 9   1:  1   1:  0   1:103      2:33      
+##  3:27          3      : 9           2:  0              3: 7      
+##  4:25          5      : 9           3:104                        
+##                6      : 9           4:  0                        
+##                10     : 9           5:  0                        
+##                (Other):49           6:  0                        
+##       temp            atemp             hum           windspeed      
+##  Min.   :0.1075   Min.   :0.1193   Min.   :0.3600   Min.   :0.06096  
+##  1st Qu.:0.3463   1st Qu.:0.3412   1st Qu.:0.5379   1st Qu.:0.13418  
+##  Median :0.5350   Median :0.5136   Median :0.6331   Median :0.17818  
+##  Mean   :0.5046   Mean   :0.4816   Mean   :0.6454   Mean   :0.18774  
+##  3rd Qu.:0.6583   3rd Qu.:0.6122   3rd Qu.:0.7435   3rd Qu.:0.24360  
+##  Max.   :0.7933   Max.   :0.7469   Max.   :0.9704   Max.   :0.41543  
+##                                                                      
+##       cnt      
+##  Min.   : 441  
+##  1st Qu.:2653  
+##  Median :4642  
+##  Mean   :4549  
+##  3rd Qu.:6176  
+##  Max.   :8173  
 ## 
 </code></pre>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>bikeData[<span class="kw">is.na</span>(bikeData)<span class="op">==</span><span class="ot">TRUE</span>]</span></code></pre></div>
@@ -896,7 +904,7 @@ Because LOOCV can be time-consuming, let’s just use 10-fold cross validation. 
 </tr>
 </tbody>
 </table>
-<p>We prefer the model with lower RMSE.We found that linear model is the optimal model.</p>
+<p>We prefer the model with lower RMSE.We found that boosted tree is the optimal model.</p>
 <h4 id="r-markdown-automation-code">R Markdown Automation Code</h4>
 <p>Please don’t run this when knitting Project2.Rmd! You’ll want to run this separately (like in the Console) to get all the reports. Just putting this here so it doesn’t get lost! You can access these R Markdwon parameters using <code>params$weekday</code> in the R Code during each automated run.</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>days &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Sunday&quot;</span>, <span class="st">&quot;Monday&quot;</span>, <span class="st">&quot;Tuesday&quot;</span>, <span class="st">&quot;Wednesday&quot;</span>, <span class="st">&quot;Thursday&quot;</span>, <span class="st">&quot;Friday&quot;</span>, <span class="st">&quot;Saturday&quot;</span>, <span class="st">&quot;Sunday&quot;</span>)</span>

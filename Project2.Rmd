@@ -184,7 +184,7 @@ colnames(RMSE.vals) <- "RMSE"
 kable(RMSE.vals)
 
 ```
-We prefer the model with lower RMSE.We found that linear model is the optimal model.
+We prefer the model with lower RMSE.We found that boosted tree is the optimal model.
 
 #### R Markdown Automation Code
 Please don't run this when knitting Project2.Rmd! You'll want to run this separately (like in the Console) to get all the reports. Just putting this here so it doesn't get lost! You can access these R Markdwon parameters using `params$weekday` in the R Code during each automated run.

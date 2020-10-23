@@ -433,7 +433,7 @@ kable(RMSE.vals)
 | Boosted Tree    |  606.2937 |
 | linear model    | 1263.2644 |
 
-We prefer the model with lower RMSE.We found that linear model is the
+We prefer the model with lower RMSE.We found that boosted tree is the
 optimal model.
 
 #### R Markdown Automation Code
