@@ -7,8 +7,10 @@ September 18, 2020
   - [Explore Data](#explore-data)
   - [Regression Tree with LOOCV](#regression-tree-with-loocv)
   - [Boosted Tree with CV](#boosted-tree-with-cv)
-  - [Final Model](#final-model)
-  - [R Markdown Automation Code](#r-markdown-automation-code)
+  - [Second Analysis](#second-analysis)
+      - [Linear model](#linear-model)
+          - [Final Model](#final-model)
+          - [R Markdown Automation Code](#r-markdown-automation-code)
 
 #### Prepare Data
 
@@ -97,19 +99,6 @@ bikeData$weathersit <- as.factor(bikeData$weathersit)
 # Slice off data for only this weekday (default Sunday)
 dayData <- bikeData %>% filter(weekday == params$day)
 head(dayData)
-```
-
-    ## # A tibble: 6 x 12
-    ##   season yr    mnth  holiday weekday workingday weathersit   temp  atemp   hum windspeed   cnt
-    ##   <fct>  <fct> <fct> <fct>   <fct>   <fct>      <fct>       <dbl>  <dbl> <dbl>     <dbl> <dbl>
-    ## 1 1      0     1     0       6       0          2          0.344  0.364  0.806     0.160   985
-    ## 2 1      0     1     0       6       0          2          0.165  0.162  0.536     0.267   959
-    ## 3 1      0     1     0       6       0          2          0.233  0.248  0.499     0.158  1248
-    ## 4 1      0     1     0       6       0          1          0.0591 0.0791 0.4       0.172   981
-    ## 5 1      0     1     0       6       0          1          0.197  0.212  0.652     0.145  1098
-    ## 6 1      0     2     0       6       0          2          0.233  0.243  0.929     0.161  1005
-
-``` r
 n = nrow(dayData)
 
 # Split into 70% training, 30% test data sets
@@ -117,6 +106,7 @@ set.seed(123)
 train <- sample(1:n, size = n*0.7)
 dayData.train <- dayData[train, ]
 dayData.test <- dayData[-train, ]
+dayData.train
 ```
 
 #### Explore Data
@@ -252,25 +242,25 @@ tree.cv
     ## Resampling results across tuning parameters:
     ## 
     ##   cp    RMSE      Rsquared   MAE     
-    ##   0.00  1369.548  0.6202547  1089.813
-    ##   0.01  1369.548  0.6202547  1089.813
-    ##   0.02  1369.548  0.6202547  1089.813
-    ##   0.03  1371.765  0.6187920  1116.349
-    ##   0.04  1322.918  0.6447943  1057.508
-    ##   0.05  1368.351  0.6176171  1104.296
-    ##   0.06  1392.902  0.6036977  1116.187
-    ##   0.07  1454.558  0.5698510  1154.403
-    ##   0.08  1614.445  0.4856557  1290.630
-    ##   0.09  1648.391  0.4646069  1322.491
-    ##   0.10  1722.848  0.4210183  1392.925
-    ##   0.11  1773.332  0.3958305  1461.245
-    ##   0.12  1849.334  0.3432233  1542.282
-    ##   0.13  1876.535  0.3063134  1625.714
-    ##   0.14  1915.549  0.2875791  1631.431
-    ##   0.15  1942.201  0.2733477  1650.555
+    ##   0.00  1548.671  0.4397806  1251.509
+    ##   0.01  1548.671  0.4397806  1251.509
+    ##   0.02  1537.983  0.4459289  1247.426
+    ##   0.03  1583.783  0.4157702  1283.438
+    ##   0.04  1601.298  0.3979761  1291.150
+    ##   0.05  1595.715  0.4035302  1289.013
+    ##   0.06  1597.277  0.4002973  1291.746
+    ##   0.07  1611.323  0.3898026  1311.703
+    ##   0.08  1632.739  0.3757493  1326.975
+    ##   0.09  1705.575  0.3309753  1362.622
+    ##   0.10  1794.550  0.2639947  1454.336
+    ##   0.11  1771.255  0.2741391  1421.807
+    ##   0.12  1781.865  0.2737965  1414.817
+    ##   0.13  1812.687  0.2630106  1498.715
+    ##   0.14  1825.331  0.2660871  1473.546
+    ##   0.15  1800.252  0.2758849  1446.980
     ## 
     ## RMSE was used to select the optimal model using the smallest value.
-    ## The final value used for the model was cp = 0.04.
+    ## The final value used for the model was cp = 0.02.
 
 ``` r
 best.cp <- tree.cv$bestTune$cp
@@ -279,8 +269,8 @@ best.RSquared <- tree.cv$results$Rsquared[tree.cv$results$cp==best.cp]
 best.MAE <- tree.cv$results$MAE[tree.cv$results$cp==best.cp]
 ```
 
-The best complexity parameter was 0.04, based on lowest RMSE
-(unexplained variation) of 1322.9184887.
+The best complexity parameter was 0.02, based on lowest RMSE
+(unexplained variation) of 1537.9829394.
 
 ``` r
 tree.cv$finalModel
@@ -291,13 +281,15 @@ tree.cv$finalModel
     ## node), split, n, deviance, yval
     ##       * denotes terminal node
     ## 
-    ## 1) root 73 355839500 4588.616  
-    ##   2) atemp< 0.3841435 29  61395610 2759.448  
-    ##     4) atemp< 0.304923 15  12195780 1772.667 *
-    ##     5) atemp>=0.304923 14  18944400 3816.714 *
-    ##   3) atemp>=0.3841435 44 133462600 5794.205  
-    ##     6) yr1< 0.5 17  27079400 4358.059 *
-    ##     7) yr1>=0.5 27  49243870 6698.444 *
+    ##  1) root 73 305144700 4743.521  
+    ##    2) temp< 0.4341665 30  87716790 3162.300  
+    ##      4) temp< 0.285 12   6029024 1900.833 *
+    ##      5) temp>=0.285 18  49861810 4003.278 *
+    ##    3) temp>=0.4341665 43  90089210 5846.698  
+    ##      6) yr1< 0.5 20  10957200 4808.600 *
+    ##      7) yr1>=0.5 23  38837390 6749.391  
+    ##       14) hum>=0.706042 8  13830130 5928.750 *
+    ##       15) hum< 0.706042 15  16746250 7187.067 *
 
 ``` r
 plot(tree.cv$finalModel, margin=0.2); text(tree.cv$finalModel, cex=0.8)
@@ -332,15 +324,51 @@ boost.cv <- train(cnt ~ .,
 boost.cv$bestTune
 ```
 
-    ##    n.trees interaction.depth shrinkage n.minobsinnode
-    ## 28    1000                 4      0.01              1
+# Second Analysis
+
+## Linear model
+
+``` r
+lm.fit <- lm(cnt~temp+windspeed+atemp+hum, data =dayData.train)
+summary(lm.fit)
+```
+
+    ## 
+    ## Call:
+    ## lm(formula = cnt ~ temp + windspeed + atemp + hum, data = dayData.train)
+    ## 
+    ## Residuals:
+    ##     Min      1Q  Median      3Q     Max 
+    ## -4652.2 -1062.5   -14.9   884.1  3177.1 
+    ## 
+    ## Coefficients:
+    ##             Estimate Std. Error t value Pr(>|t|)
+    ## (Intercept)     2080       1282   1.622    0.109
+    ## temp          -16047      13698  -1.171    0.245
+    ## windspeed      -3420       2498  -1.369    0.176
+    ## atemp          25834      15568   1.659    0.102
+    ## hum            -1690       1280  -1.321    0.191
+    ## 
+    ## Residual standard error: 1600 on 68 degrees of freedom
+    ## Multiple R-squared:  0.4296, Adjusted R-squared:  0.396 
+    ## F-statistic:  12.8 on 4 and 68 DF,  p-value: 8.028e-08
+
+``` r
+final.fit <- train(as.formula(cnt~temp+windspeed+atemp+hum),
+              dayData.test,method='lm',
+              trControl = trainControl(method = 'cv',number=5))
+final.fit$results$RMSE
+```
+
+    ## [1] 1736.598
 
 #### Final Model
 
-We compare the final models selected from `tree.cv` and `boost.cv` for
-best performance on the test dataset. We measure performance as the
-smallest RMSE (root mean squared error), which reflects unexplained
-variation. Then, we’ll take the best model and report it’s parameters.
+We compare the final models selected from `tree.cv` ,`boost.cv` and
+`linear model`for best performance on the test dataset. We measure
+performance as the smallest RMSE (root mean squared error), which
+reflects unexplained variation. Then, we’ll take the best model and
+report it’s parameters.
 
 ``` r
 regPred <- predict(tree.cv, newdata=dayData.test)
@@ -349,22 +377,20 @@ reg.rmse <- sqrt(mean((regPred - dayData.test$cnt)^2))
 boostPred <- predict(boost.cv, newdata=dayData.test)
 boost.rmse <- sqrt(mean((boostPred - dayData.test$cnt)^2))
 
-RMSE.vals <- data.frame(c(reg.rmse, boost.rmse))
-rownames(RMSE.vals) <- c("Regression Tree", "Boosted Tree")
+RMSE.vals <- data.frame(c(reg.rmse, boost.rmse,final.fit$results$RMSE))
+rownames(RMSE.vals) <- c("Regression Tree", "Boosted Tree","linear model")
 colnames(RMSE.vals) <- "RMSE"
 kable(RMSE.vals)
 ```
 
 |                 |      RMSE |
 | :-------------- | --------: |
-| Regression Tree | 1321.5784 |
-| Boosted Tree    |  695.6158 |
+| Regression Tree | 1392.6788 |
+| Boosted Tree    |  819.0543 |
+| linear model    | 1736.5977 |
 
-``` r
-bestMethod <- ifelse(reg.rmse < boost.rmse, "Regression Tree", "Boosted Tree")
-```
-
-We prefer the Boosted Tree because it has lower RMSE.
+We prefer the model with lower RMSE.We found that linear model is the
+optimal model.
 
 #### R Markdown Automation Code
 
