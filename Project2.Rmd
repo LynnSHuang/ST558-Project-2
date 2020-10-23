@@ -75,6 +75,7 @@ set.seed(123)
 train <- sample(1:n, size = n*0.7)
 dayData.train <- dayData[train, ]
 dayData.test <- dayData[-train, ]
+dayData.train
 ```
 
 #### Explore Data
@@ -155,8 +156,21 @@ boost.cv <- train(cnt ~ .,
 boost.cv$bestTune
 ```
 
+# Second Analysis  
+## Linear model  
+
+```{r}
+lm.fit <- lm(cnt~temp+windspeed+atemp+hum, data =dayData.train)
+summary(lm.fit)
+final.fit <- train(as.formula(cnt~temp+windspeed+atemp+hum),
+              dayData.test,method='lm',
+              trControl = trainControl(method = 'cv',number=5))
+final.fit$results$RMSE
+```
+
+
 #### Final Model
-We compare the final models selected from `tree.cv` and `boost.cv` for best performance on the test dataset. We measure performance as the smallest RMSE (root mean squared error), which reflects unexplained variation. Then, we'll take the best model and report it's parameters.  
+We compare the final models selected from `tree.cv` ,`boost.cv` and `linear model`for best performance on the test dataset. We measure performance as the smallest RMSE (root mean squared error), which reflects unexplained variation. Then, we'll take the best model and report it's parameters.  
 ```{r FinalModel, cache=TRUE}
 regPred <- predict(tree.cv, newdata=dayData.test)
 reg.rmse <- sqrt(mean((regPred - dayData.test$cnt)^2))
@@ -164,14 +178,13 @@ reg.rmse <- sqrt(mean((regPred - dayData.test$cnt)^2))
 boostPred <- predict(boost.cv, newdata=dayData.test)
 boost.rmse <- sqrt(mean((boostPred - dayData.test$cnt)^2))
 
-RMSE.vals <- data.frame(c(reg.rmse, boost.rmse))
-rownames(RMSE.vals) <- c("Regression Tree", "Boosted Tree")
+RMSE.vals <- data.frame(c(reg.rmse, boost.rmse,final.fit$results$RMSE))
+rownames(RMSE.vals) <- c("Regression Tree", "Boosted Tree","linear model")
 colnames(RMSE.vals) <- "RMSE"
 kable(RMSE.vals)
 
-bestMethod <- ifelse(reg.rmse < boost.rmse, "Regression Tree", "Boosted Tree")
 ```
-We prefer the `r bestMethod` because it has lower RMSE.
+We prefer the model with lower RMSE.We found that boosted tree is the optimal model.
 
 #### R Markdown Automation Code
 Please don't run this when knitting Project2.Rmd! You'll want to run this separately (like in the Console) to get all the reports. Just putting this here so it doesn't get lost! You can access these R Markdwon parameters using `params$weekday` in the R Code during each automated run.
